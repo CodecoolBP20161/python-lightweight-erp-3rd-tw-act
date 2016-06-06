@@ -20,7 +20,23 @@ data_manager = SourceFileLoader("module.name", current_file_path + "/../data_man
 
 # start this manager by a menu
 def start():
-
+    options = ["Show table", "Add new item", "Update item", "Remove item"]
+    ui.print_menu("Accounting submenu", options, "Exit program")
+    # inputs = ui.get_inputs(["Please enter a number: "], "")
+    # option = inputs[0]
+    option = 1
+    if option == 1:
+        table = data_manager.get_table_from_file("items.csv")
+        show_table(table)
+    # elif option == 2:
+    # elif option == 3:
+    # elif option == 4:
+    # elif option == 5:
+    # elif option == 6:
+    # elif option == 0:
+    #     sys.exit(0)
+    else:
+        raise KeyError("There is no such option.")
     # you code
 
     pass
@@ -28,9 +44,8 @@ def start():
 
 # print the default table of records from the file
 def show_table(table):
-
-    # your code
-
+    title_list = ["id", "month", "day", "year", "type", "amount"]
+    ui.print_table(table, title_list)
     pass
 
 
@@ -78,3 +93,4 @@ def avg_amount(table, year):
     # your code
 
     pass
+start()
