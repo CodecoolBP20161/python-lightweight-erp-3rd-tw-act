@@ -24,11 +24,12 @@ def start():
     ui.print_menu("Accounting submenu", options, "Exit program")
     # inputs = ui.get_inputs(["Please enter a number: "], "")
     # option = inputs[0]
-    option = 1
+    table = data_manager.get_table_from_file("items.csv")
+    option = 2
     if option == 1:
-        table = data_manager.get_table_from_file("items.csv")
         show_table(table)
-    # elif option == 2:
+    elif option == 2:
+        add(table)
     # elif option == 3:
     # elif option == 4:
     # elif option == 5:
@@ -51,9 +52,9 @@ def show_table(table):
 
 # Ask a new record as an input from the user than add it to @table, than return @table
 def add(table):
-
-    # your code
-
+    new_line = ui.get_inputs(["Please enter a number: "], "")
+    table.append(new_line)
+    data_manager.write_table_to_file("items.csv", table)
     return table
 
 
