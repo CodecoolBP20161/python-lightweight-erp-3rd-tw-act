@@ -1,13 +1,3 @@
-
-
-# An example output:
-# /-----------------------------------\
-# |   id   |      title     |  type   |
-# |--------|----------------|---------|
-# |   0    | Counter strike |    fps  |
-# |--------|----------------|---------|
-# |   1    |       fo       |    fps  |
-# \-----------------------------------/
 def print_table(table, title_list):
     max_len_items = table[0][0]
     for i in range(len(table)):
@@ -30,21 +20,11 @@ def print_table(table, title_list):
     pass
 
 
-# An example output:
-# Main menu:
-# (1) Store manager
-# (2) Human resources manager
-# (3) Inventory manager
-# (4) Accounting manager
-# (5) Selling manager
-# (6) Customer relationship management (CRM)
-# (0) Exit program
-#
-# see the function call in main.py
 def print_menu(title, list_options, exit_message):
-
-    # your code
-
+    print (title)
+    for i in range(len(list_options)):
+        print ("(%r)" % (i+1), list_options[i])
+    print ("(0)", exit_message)
     pass
 
 
