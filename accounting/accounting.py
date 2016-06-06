@@ -25,12 +25,14 @@ def start():
     # inputs = ui.get_inputs(["Please enter a number: "], "")
     # option = inputs[0]
     table = data_manager.get_table_from_file("items.csv")
-    option = 2
+    option = 3
     if option == 1:
         show_table(table)
     elif option == 2:
         add(table)
-    # elif option == 3:
+    elif option == 3:
+        id_ = "0"
+        remove(table, id_)
     # elif option == 4:
     # elif option == 5:
     # elif option == 6:
@@ -60,9 +62,10 @@ def add(table):
 
 # Remove the record having the id @id_ from the @list, than return @table
 def remove(table, id_):
-
-    # your code
-
+    for i in range(len(table)):
+        if table[i][0] == id_:
+            del table[i]
+    data_manager.write_table_to_file("items.csv", table)
     return table
 
 
