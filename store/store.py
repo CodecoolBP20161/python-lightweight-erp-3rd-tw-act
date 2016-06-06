@@ -17,8 +17,8 @@ ui = SourceFileLoader("module.name", current_file_path + "/../ui.py").load_modul
 data_manager = SourceFileLoader("module.name", current_file_path + "/../data_manager.py").load_module()
 
 
-# start this manager by a menu
-def start():
+# start_module this manager by a menu
+def start_module():
 
     # you code
 
