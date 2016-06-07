@@ -21,17 +21,35 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 
 # start this manager by a menu
 def start():
-
-    # you code
+    options = ["Show table", "Add new item", "Remove item", "Update item"]
+    ui.print_menu("Store submenu", options, "Exit program")
+    inputs = ui.get_inputs(["Please choose an option: "], "")
+    option = inputs[0]
+    table = data_manager.get_table_from_file(current_file_path + "/games.csv")
+    if option == "1":
+        # print("show_table")
+        show_table(table)
+    elif option == "2":
+        print("add")
+        # add(table)
+    elif option == "3":
+        print("remove")
+        # remove(table, id_)
+    elif option == "4":
+        print("update")
+        # update(table, id_)
+    elif option == "0":
+        pass
+    else:
+        raise KeyError("There is no such option.")
 
     pass
 
 
 # print the default table of records from the file
 def show_table(table):
-
-    # your code
-
+    title_list = ["ID", "Title", "Manufacture", "Price", "In stock"]
+    ui.print_table(table, title_list)
     pass
 
 
