@@ -21,7 +21,7 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 
 # start this manager by a menu
 def start():
-    options = ["Show table", "Add new item", "Remove item", "Update item"]
+    options = ["Show table", "Add new item", "Remove item", "Update item", "Get available tools"]
     while True:
         ui.print_menu("Accounting submenu", options, "Exit program")
         inputs = ui.get_inputs(["Please choose an option: "], "")
@@ -36,7 +36,8 @@ def start():
             remove(table, id_)
         elif option == "4":
             update(table, id_)
-        # elif option == 5:
+        elif option == "5":
+            get_available_tools(table)
         # elif option == 6:
         elif option == "0":
             break
@@ -102,10 +103,17 @@ def update(table, id_):
 # the question: Which items has not yet exceeded their durability ?
 # return type: list of lists (the inner list contains the whole row with their actual data types)
 def get_available_tools(table):
-
-    # your code
-
-    pass
+    title_list = ["id", "name", "manufacturer", "purchase_date", "durability"]
+    actual_year = 2016
+    table_available_tools = []
+    for i in range(len(table)):
+        if int(table[i][3]) + int(table[i][4]) >= actual_year:
+            table_available_tools.append(table[i])
+    ui.print_table(table_available_tools, title_list)
+    for i in range(len(table_available_tools)):
+        table_available_tools[i][3] = int(table_available_tools[i][3])
+        table_available_tools[i][4] = int(table_available_tools[i][4])
+    return table_available_tools
 
 
 # the question: What are the average durability time for each manufacturer?
