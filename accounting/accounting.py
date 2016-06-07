@@ -128,7 +128,17 @@ def which_year_max(table):
 # the question: What is the average (per item) profit in a given year? [(profit)/(items count) ]
 # return the answer (number)
 def avg_amount(table, year):
-
-    # your code
-
-    pass
+    profit = 0
+    counter_year = 0
+    list_year = [table[i][3] for i in range(len(table))]
+    list_type = [table[i][4] for i in range(len(table))]
+    list_amount = [table[i][5] for i in range(len(table))]
+    for i in range(len(table)):
+        if int(list_year[i]) == year:
+            counter_year += 1
+            if list_type[i] == "in":
+                profit += int(list_amount[i])
+            if list_type[i] == "out":
+                profit -= int(list_amount[i])
+    avg_amount = profit/counter_year
+    return avg_amount
