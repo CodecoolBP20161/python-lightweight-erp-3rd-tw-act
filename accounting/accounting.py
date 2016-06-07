@@ -13,19 +13,17 @@ import os
 from importlib.machinery import SourceFileLoader
 current_file_path = os.path.dirname(os.path.abspath(__file__))
 # User interface module
-ui = SourceFileLoader("module.name", current_file_path + "/../ui.py").load_module()
+ui = SourceFileLoader("ui", current_file_path + "/../ui.py").load_module()
 # data manager module
-data_manager = SourceFileLoader("module.name", current_file_path + "/../data_manager.py").load_module()
-
+data_manager = SourceFileLoader("data_manager", current_file_path + "/../data_manager.py").load_module()
 
 # start this manager by a menu
 def start():
     options = ["Show table", "Add new item", "Update item", "Remove item"]
     ui.print_menu("Accounting submenu", options, "Exit program")
-    # inputs = ui.get_inputs(["Please enter a number: "], "")
-    # option = inputs[0]
-    table = data_manager.get_table_from_file("items.csv")
-    option = 4
+    inputs = ui.get_inputs(["Please enter a number: "], "")
+    option = int(inputs[0])
+    table = data_manager.get_table_from_file(current_file_path + "/items.csv")
     id_ = "0"
     if option == 1:
         show_table(table)
@@ -57,7 +55,7 @@ def show_table(table):
 def add(table):
     new_line = ui.get_inputs(["Please enter a number: "], "")
     table.append(new_line)
-    data_manager.write_table_to_file("items.csv", table)
+    data_manager.write_table_to_file(current_file_path + "/items.csv", table)
     return table
 
 
@@ -66,7 +64,7 @@ def remove(table, id_):
     for i in range(len(table)):
         if table[i][0] == id_:
             del table[i]
-    data_manager.write_table_to_file("items.csv", table)
+    data_manager.write_table_to_file(current_file_path + "/items.csv", table)
     return table
 
 
@@ -77,7 +75,7 @@ def update(table, id_):
     for i in range(len(table)):
         if table[i][0] == id_:
             table[i] = new_data
-    data_manager.write_table_to_file("items.csv", table)
+    data_manager.write_table_to_file(current_file_path + "/items.csv", table)
     return table
 
 
