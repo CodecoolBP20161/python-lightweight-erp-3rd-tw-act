@@ -21,16 +21,16 @@ def print_table(table, title_list):
 
 
 def print_menu(title, list_options, exit_message):
-    print (title)
+    print(title)
     for i in range(len(list_options)):
-        print ("(%r)" % (i+1), list_options[i])
-    print ("(0)", exit_message)
+        print("(%r)" % (i+1), list_options[i])
+    print("(0)", exit_message)
     pass
 
 
 # see the function call in main.py
 def get_inputs(list_titles, title):
-    print (title)
+    print(title)
     record = [input(list_titles[0])]
 
     # your code
