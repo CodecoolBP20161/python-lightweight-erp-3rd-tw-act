@@ -21,24 +21,25 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 # start this manager by a menu
 def start():
     options = ["Show table", "Add new item", "Remove item", "Update item"]
-    ui.print_menu("Accounting submenu", options, "Exit program")
-    inputs = ui.get_inputs(["Please choose an option: "], "")
-    option = inputs[0]
-    table = data_manager.get_table_from_file(current_file_path + "/customers.csv")
-    id_ = "0"
-    if option == "0":
+    while True:
+        ui.print_menu("CRM", options, "Exit program")
+        inputs = ui.get_inputs(["Please choose an option: "], "")
+        option = inputs[0]
+        table = data_manager.get_table_from_file(current_file_path + "/customers.csv")
+        id_ = "0"
+        if option == "0":
+            break
+        elif option == "1":
+            show_table(table)
+        elif option == "2":
+            add(table)
+        elif option == "3":
+            remove(table, id_)
+        elif option == "4":
+            update(table, id_)
+        else:
+            raise KeyError("There is no such option.")
         pass
-    elif option == "1":
-        show_table(table)
-    elif option == "2":
-        add(table)
-    elif option == "3":
-        remove(table, id_)
-    elif option == "4":
-        update(table, id_)
-    else:
-        raise KeyError("There is no such option.")
-    pass
 
 
 # print the default table of records from the file
@@ -99,10 +100,15 @@ def update(table, id_):
 # the question: What is the id of the customer with the longest name ?
 # return type: string (id) - if there are more than one longest name, return the first of descending alphabetical order
 def get_longest_name_id(table):
-
-    # your code
-
-    pass
+    datalines = data_manager.get_table_from_file(current_file_path + "/customers.csv")
+    sort_lines = sorted(datalines, key=lambda x: x[1])
+    longest_name = 0
+    for i in sort_lines:
+        if len(i[1]) > longest_name:
+            longest_name = len(i[1])
+            longest_id = i[0]
+    return longest_id
+    # pass
 
 
 # the question: Which customers has subscribed to the newsletter?
