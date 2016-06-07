@@ -115,7 +115,17 @@ def get_available_tools(table):
 # the question: What are the average durability time for each manufacturer?
 # return type: a dictionary with this structure: { [manufacturer] : [avg] }
 def get_average_durability_by_manufacturers(table):
-
-    # your code
-
-    pass
+    list_manufacturer = [table[i][2] for i in range(len(table))]
+    list_durability = [table[i][4] for i in range(len(table))]
+    count_manufacturer = [0] * len(list_manufacturer)
+    count_durability = [0] * len(list_manufacturer)
+    dict_average_by_manufacturer = {}
+    for i in range(len(list_manufacturer)):
+        for j in range(len(list_manufacturer)):
+            if list_manufacturer[j] == list_manufacturer[i] and list_manufacturer[j] not in list_manufacturer[0:j]:
+                count_manufacturer[j] += 1
+                count_durability[j] = int(count_durability[j]) + int(list_durability[i])
+    for i in range(len(count_manufacturer)):
+        if count_manufacturer[i] != 0:
+            dict_average_by_manufacturer[list_manufacturer[i]] = count_durability[i]/count_manufacturer[i]
+    return dict_average_by_manufacturer
