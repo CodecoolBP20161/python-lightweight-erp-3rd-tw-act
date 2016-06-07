@@ -34,7 +34,7 @@ def start():
     elif option == "4":
         update(table, id_)
     elif option == "5":
-        get_oldest_person(table)
+        get_persons_closest_to_average(table)
     # elif option == 6:
     elif option == "0":
         pass
@@ -114,7 +114,16 @@ def get_oldest_person(table):
 # the question: Who is the closest to the average age ?
 # return type: list of strings (name or names if there are two more with the same value)
 def get_persons_closest_to_average(table):
-
-    # your code
-
-    pass
+    sum_year = 0
+    for i in range(len(table)):
+        sum_year = sum_year + int(table[i][2])
+    average = int(sum_year/len(table))
+    smallest_difference = abs(average - int(table[0][2]))
+    closest_person = [table[0][1]]
+    for i in range(len(table)):
+        if abs(average - int(table[i][2])) < int(smallest_difference):
+            closest_person = [table[i][1]]
+            smallest_difference = abs(average - int(table[i][2]))
+        elif abs(average - int(table[i][2])) == int(smallest_difference):
+            closest_person.append(table[i][1])
+    return closest_person
