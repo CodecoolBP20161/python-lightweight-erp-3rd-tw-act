@@ -18,8 +18,8 @@ ui = SourceFileLoader("module.name", current_file_path + "/../ui.py").load_modul
 data_manager = SourceFileLoader("module.name", current_file_path + "/../data_manager.py").load_module()
 
 
-# start_module this manager by a menu
-def start_module():
+# start this manager by a menu
+def start():
     options = ["Show table", "Add new item", "Update item", "Remove item"]
     ui.print_menu("Accounting submenu", options, "Exit program")
     # inputs = ui.get_inputs(["Please enter a number: "], "")
@@ -100,4 +100,3 @@ def avg_amount(table, year):
     # your code
 
     pass
-start_module()

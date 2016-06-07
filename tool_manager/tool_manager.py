@@ -19,8 +19,8 @@ data_manager = SourceFileLoader("module.name", current_file_path + "/../data_man
 common = SourceFileLoader("module.name", current_file_path + "/../common.py").load_module()
 
 
-# start_module this manager by a menu
-def start_module():
+# start this manager by a menu
+def start():
 
     # you code
 
