@@ -25,7 +25,7 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 def start():
     options = ["Show table", "Add new item", "Remove item", "Update item"]
     while True:
-        ui.print_menu("Accounting submenu", options, "Exit program")
+        ui.print_menu("Selling submenu", options, "Exit program")
         inputs = ui.get_inputs(["Please choose an option: "], "")
         option = inputs[0]
         table = data_manager.get_table_from_file(current_file_path + "/sellings.csv")
@@ -38,9 +38,10 @@ def start():
             remove(table, id_)
         elif option == "4":
             update(table, id_)
-        # elif option == 5:
-        # elif option == 6:
-        elif option == "0":
+        elif option == "5":
+            get_lowest_price_item_id(table)
+        elif option == "6":
+            get_items_sold_between(table, month_from, day_from, year_from, month_to, day_to, year_to)
             break
         else:
             raise KeyError("There is no such option.")
@@ -100,21 +101,32 @@ def update(table, id_):
 
 # special functions:
 # ------------------
-
 # the question: What is the id of the item that sold for the lowest price ?
 # return type: string (id)
 # if there are more than one with the lowest price, return the first of descending alphabetical order
+
+
 def get_lowest_price_item_id(table):
-
-    # your code
-
+    first_price = table[0][2]
+    first_price_id = table[0][0]
+    for i in range(len(table)):
+        if int(first_price) > int(table[i][2]):
+            first_price = table[i][2]
+            first_price_id = table[i][0]
+    return first_price_id
     pass
 
 
 # the question: Which items are sold between two given dates ? (from_date < birth_date < to_date)
 # return type: list of lists (the filtered table)
 def get_items_sold_between(table, month_from, day_from, year_from, month_to, day_to, year_to):
-
-    # your code
+    date_from = int(str(year_from) + str(month_from) + str(day_from))
+    date_to = int(str(year_from) + str(month_from) + str(day_from))
+    results = []
+    for line in table:
+        date_today = int(str(line[5]) + str(line[3]) + str(line[4]))
+        if (date_today > date_from) and (date_today < date_to):
+            results.append(line)
+    return results
 
     pass
