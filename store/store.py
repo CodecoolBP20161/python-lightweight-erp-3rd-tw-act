@@ -13,9 +13,9 @@ from importlib.machinery import SourceFileLoader
 current_file_path = os.path.dirname(os.path.abspath(__file__))
 # User interface module
 ui = SourceFileLoader("ui", current_file_path + "/../ui.py").load_module()
-# data manager module
+# Data manager module
 data_manager = SourceFileLoader("data_manager", current_file_path + "/../data_manager.py").load_module()
-# common interface module
+# Common interface module
 common = SourceFileLoader("common", current_file_path + "/../common.py").load_module()
 
 
@@ -43,7 +43,7 @@ def start():
         pass
 
 
-# print the default table of records from the file
+# Print the default table of records from the file
 def show_table(table):
     title_list = ["ID", "Title", "Manufacture", "Price", "In stock"]
     ui.print_table(table, title_list)
@@ -94,7 +94,7 @@ def update(table, id_):
     return table
 
 
-# special functions:
+# Special functions:
 # ------------------
 
 # the question: How many different kinds of game are available of each manufacturer?
@@ -112,3 +112,12 @@ def get_counts_by_manufacturers(table):
 
 # the question: What is the average amount of games in stock of a given manufacturer?
 # return type: number
+def get_average_by_manufacturer(table, manufacturer):
+    all_stock = 0
+    count = 0
+    for i in range(len(table)):
+        if manufacturer == table[i][2]:
+            all_stock += int(table[i][4])
+            count += 1
+    res = all_stock/count
+    return res
