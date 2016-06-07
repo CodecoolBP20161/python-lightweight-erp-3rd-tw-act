@@ -30,6 +30,7 @@ def print_menu(title, list_options, exit_message):
 
 # see the function call in main.py
 def get_inputs(list_titles, title):
+    print (title)
     record = [input(list_titles[0])]
 
     # your code
@@ -39,7 +40,5 @@ def get_inputs(list_titles, title):
 
 # see the function call in main.py
 def print_error_message(message):
-
-    # your code
-
+    print(message, "\n")
     pass
