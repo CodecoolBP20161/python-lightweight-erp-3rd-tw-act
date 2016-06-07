@@ -19,6 +19,7 @@ data_manager = SourceFileLoader("data_manager", current_file_path + "/../data_ma
 # common interface module
 common = SourceFileLoader("common", current_file_path + "/../common.py").load_module()
 
+
 # start this manager by a menu
 def start():
     options = ["Show table", "Add new item", "Remove item", "Update item"]
