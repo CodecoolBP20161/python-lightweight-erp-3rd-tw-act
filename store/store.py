@@ -26,18 +26,15 @@ def start():
     inputs = ui.get_inputs(["Please choose an option: "], "")
     option = inputs[0]
     table = data_manager.get_table_from_file(current_file_path + "/games.csv")
+    id_ = "0"
     if option == "1":
-        # print("show_table")
         show_table(table)
     elif option == "2":
-        print("add")
-        # add(table)
+        add(table)
     elif option == "3":
-        print("remove")
-        # remove(table, id_)
+        remove(table, id_)
     elif option == "4":
-        print("update")
-        # update(table, id_)
+        update(table, id_)
     elif option == "0":
         pass
     else:
@@ -55,26 +52,45 @@ def show_table(table):
 
 # Ask a new record as an input from the user than add it to @table, than return @table
 def add(table):
-
-    # your code
-
+    title_list = ["Title: ", "Manufacture: ", "Price: ", "In stock: "]
+    temp_list = []
+    new_line = [common.generate_random(table)]
+    for i in range(len(title_list)):
+        title_list[0] = title_list[i]
+        temp_list.append(ui.get_inputs(title_list, "Give me a data!"))
+        new_line.append(temp_list[i][0])
+    table.append(new_line)
+    data_manager.write_table_to_file(current_file_path + "/games.csv", table)
     return table
 
 
 # Remove the record having the id @id_ from the @list, than return @table
 def remove(table, id_):
-
-    # your code
-
+    id_ = ui.get_inputs(["id: "], "Give me an id: ")
+    for i in range(len(table)):
+        if table[i][0] == id_[0]:
+            del table[i]
+            break
+    data_manager.write_table_to_file(current_file_path + "/games.csv", table)
     return table
 
 
 # Update the record in @table having the id @id_ by asking the new data from the user,
 # than return @table
 def update(table, id_):
-
-    # your code
-
+    title_list = ["Title: ", "Manufacture: ", "Price: ", "In stock: "]
+    temp_list = []
+    id_ = ui.get_inputs(["id: "], "Give me an id: ")
+    new_line = []
+    new_line.append(id_[0])
+    for i in range(len(title_list)):
+        title_list[0] = title_list[i]
+        temp_list.append(ui.get_inputs(title_list, "Give me a data!"))
+        new_line.append(temp_list[i][0])
+    for i in range(len(table)):
+        if table[i][0] == id_[0]:
+            table[i] = new_line
+    data_manager.write_table_to_file(current_file_path + "/games.csv", table)
     return table
 
 
