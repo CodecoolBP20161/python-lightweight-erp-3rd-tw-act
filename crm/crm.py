@@ -116,10 +116,13 @@ def get_longest_name_id(table):
             longest_id = i[0]
     return longest_id
 
+
 # the question: Which customers has subscribed to the newsletter?
 # return type: list of string (where string is like email+separator+name, separator=";")
 def get_subscribed_emails(table):
-
-    # your code
-
-    pass
+    datalines = data_manager.get_table_from_file(current_file_path + "/customers.csv")
+    subscribed = []
+    for i in datalines:
+        if i[3] == 1:
+            subscribed.append(str(i[2], ";", i[1]))
+    return subscribed
