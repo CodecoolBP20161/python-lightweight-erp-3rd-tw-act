@@ -21,7 +21,7 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 
 # start this manager by a menu
 def start():
-    options = ["Show table", "Add new item", "Remove item", "Update item", "Get available tools"]
+    options = ["Show table", "Add new item", "Remove item", "Update item"]
     while True:
         ui.print_menu("Accounting submenu", options, "Exit program")
         inputs = ui.get_inputs(["Please choose an option: "], "")
@@ -36,9 +36,6 @@ def start():
             remove(table, id_)
         elif option == "4":
             update(table, id_)
-        elif option == "5":
-            get_available_tools(table)
-        # elif option == 6:
         elif option == "0":
             break
         else:
@@ -109,7 +106,6 @@ def get_available_tools(table):
     for i in range(len(table)):
         if int(table[i][3]) + int(table[i][4]) >= actual_year:
             table_available_tools.append(table[i])
-    ui.print_table(table_available_tools, title_list)
     for i in range(len(table_available_tools)):
         table_available_tools[i][3] = int(table_available_tools[i][3])
         table_available_tools[i][4] = int(table_available_tools[i][4])
