@@ -3,12 +3,12 @@ import os
 import data_manager
 from importlib.machinery import SourceFileLoader
 current_file_path = os.path.dirname(os.path.abspath(__file__))
-store = SourceFileLoader("module.name", current_file_path + "/store/store.py").load_module()
-hr = SourceFileLoader("module.name", current_file_path + "/hr/hr.py").load_module()
-tool_manager = SourceFileLoader("module.name", current_file_path + "/tool_manager/tool_manager.py").load_module()
-accounting = SourceFileLoader("module.name", current_file_path + "/accounting/accounting.py").load_module()
-selling = SourceFileLoader("module.name", current_file_path + "/selling/selling.py").load_module()
-crm = SourceFileLoader("module.name", current_file_path + "/crm/crm.py").load_module()
+store = SourceFileLoader("store", current_file_path + "/store/store.py").load_module()
+hr = SourceFileLoader("hr", current_file_path + "/hr/hr.py").load_module()
+tool_manager = SourceFileLoader("tool_manager", current_file_path + "/tool_manager/tool_manager.py").load_module()
+accounting = SourceFileLoader("accounting", current_file_path + "/accounting/accounting.py").load_module()
+selling = SourceFileLoader("selling", current_file_path + "/selling/selling.py").load_module()
+crm = SourceFileLoader("crm", current_file_path + "/crm/crm.py").load_module()
 
 
 def compare_lists(tester, expected_list, result_list):
@@ -178,12 +178,12 @@ class StoreTester(unittest.TestCase):
     def test_get_counts_by_manufacturers(self):
         table = data_manager.get_table_from_file(self.data_file)
         expected = get_count_by_manufacturer_list()
-        result = selling.get_counts_by_manufacturers(table)
+        result = store.get_counts_by_manufacturers(table)
         self.assertEqual(result, expected)
 
     def test_get_average_by_manufacturer(self):
         table = data_manager.get_table_from_file(self.data_file)
-        result = selling.get_average_by_manufacturer(table, "Ensemble Studios")
+        result = store.get_average_by_manufacturer(table, "Ensemble Studios")
         self.assertEqual(result, 12.25)
 
 
@@ -196,13 +196,13 @@ class ToolManagerTester(unittest.TestCase):
     def test_get_available_tools(self):
         table = data_manager.get_table_from_file(self.data_file)
         expected = [["kH34Ju#&", "PlayStation 4", "Sony", 2013, 4], ["jH34Ju#&", "Xbox One", "Microsoft", 2013, 4]]
-        result = selling.get_available_tools(table)
+        result = tool_manager.get_available_tools(table)
         compare_lists(self, expected, result)
 
     def test_get_average_durability_by_manufacturers(self):
         table = data_manager.get_table_from_file(self.data_file)
         expected = {"Sony": 3.5, "Microsoft": 4, "Nintendo": 3.25}
-        result = selling.get_average_durability_by_manufacturers(table)
+        result = tool_manager.get_average_durability_by_manufacturers(table)
         self.assertEqual(result, expected)
 
 
