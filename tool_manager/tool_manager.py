@@ -9,6 +9,7 @@
 
 # importing everything you need
 import os
+import datetime
 from importlib.machinery import SourceFileLoader
 current_file_path = os.path.dirname(os.path.abspath(__file__))
 # User interface module
@@ -101,7 +102,7 @@ def update(table, id_):
 # return type: list of lists (the inner list contains the whole row with their actual data types)
 def get_available_tools(table):
     title_list = ["id", "name", "manufacturer", "purchase_date", "durability"]
-    actual_year = 2016
+    actual_year = datetime.datetime.now().year
     table_available_tools = []
     for i in range(len(table)):
         if int(table[i][3]) + int(table[i][4]) >= actual_year:
