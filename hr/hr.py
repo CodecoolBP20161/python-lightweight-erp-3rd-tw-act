@@ -33,7 +33,8 @@ def start():
         remove(table, id_)
     elif option == "4":
         update(table, id_)
-    # elif option == 5:
+    elif option == "5":
+        get_oldest_person(table)
     # elif option == 6:
     elif option == "0":
         pass
@@ -99,10 +100,15 @@ def update(table, id_):
 # the question: Who is the oldest person ?
 # return type: list of strings (name or names if there are two more with the same value)
 def get_oldest_person(table):
-
-    # your code
-
-    pass
+    oldest_year = table[0][2]
+    oldest = [table[0][1]]
+    for i in range(len(table)):
+        if int(table[i][2]) < int(oldest_year):
+            oldest_year = table[i][2]
+            oldest = [table[i][1]]
+        elif int(table[i][2]) == int(oldest_year):
+            oldest.append(table[i][1])
+    return oldest
 
 
 # the question: Who is the closest to the average age ?
