@@ -126,12 +126,21 @@ def update(table, id_):
 
 
 def get_lowest_price_item_id(table):
+    for i in range(1, len(table)):
+        while table[i][1].lower() < table[i - 1][1].lower():
+            table.insert(i - 1, table[i])
+            del table[i + 1]
+            i = i - 1
+            if i == 0:
+                break
+    sort_lines = table
     first_price = table[0][2]
     first_price_id = table[0][0]
-    for i in range(len(table)):
-        if int(first_price) > int(table[i][2]):
-            first_price = table[i][2]
-            first_price_id = table[i][0]
+    for i in range(len(sort_lines)):
+        if int(first_price) > int(sort_lines[i][2]):
+            first_price = sort_lines[i][2]
+            first_price_id = sort_lines[i][0]
+
     return first_price_id
 
 
