@@ -22,9 +22,10 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 
 # start this manager by a menu
 def start():
-    options = ["Show table", "Add new item", "Remove item", "Update item"]
+    options = ["Show table", "Add new item", "Remove item", "Update item", "Available tools",
+               "The average durability time for each manufacturer"]
     while True:
-        ui.print_menu("Accounting submenu", options, "Exit program")
+        ui.print_menu("Tool Manager submenu", options, "Back to Main Menu")
         inputs = ui.get_inputs(["Please choose an option: "], "")
         option = inputs[0]
         table = data_manager.get_table_from_file(current_file_path + "/tools.csv")
@@ -37,6 +38,15 @@ def start():
             remove(table, id_)
         elif option == "4":
             update(table, id_)
+        elif option == "5":
+            available_tools = get_available_tools(table)
+            title_list = ["id", "name", "manufacturer", "purchase_date"]
+            ui.print_table(available_tools, title_list)
+        elif option == "6":
+            avg = get_average_durability_by_manufacturers(table)
+            avg_table = list(set(avg.items()))
+            title_list = ["manufacturer", "average"]
+            ui.print_table(avg_table, title_list)
         elif option == "0":
             break
         else:
