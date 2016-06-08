@@ -19,7 +19,8 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 
 # start this manager by a menu
 def start():
-    options = ["Show table", "Add new item", "Remove item", "Update item"]
+    options = ["Show table", "Add new item", "Remove item", "Update item", "Oldest person",
+               "Person closest to the average age"]
     while True:
         ui.print_menu("Human Resource submenu", options, "Back to Main menu")
         inputs = ui.get_inputs(["Please choose an option: "], "")
@@ -35,8 +36,21 @@ def start():
         elif option == "4":
             update(table, id_)
         elif option == "5":
-            get_persons_closest_to_average(table)
-        # elif option == 6:
+            oldest_persons = get_oldest_person(table)
+            title_list = "Oldest persons are:"
+            ui.print_table("", title_list)
+            for i in range(len(oldest_persons)):
+                persons_list = oldest_persons[i]
+                ui.print_table("", persons_list)
+            ui.print_table("", "\n")
+        elif option == "6":
+            closest_persons = get_persons_closest_to_average(table)
+            title_list = "Persons closest to the average age:"
+            ui.print_table("", title_list)
+            for i in range(len(closest_persons)):
+                persons_list = closest_persons[i]
+                ui.print_table("", persons_list)
+            ui.print_table("", "\n")
         elif option == "0":
             break
         else:

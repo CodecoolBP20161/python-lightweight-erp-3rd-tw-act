@@ -23,9 +23,10 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 
 # start this manager by a menu
 def start():
-    options = ["Show table", "Add new item", "Remove item", "Update item"]
+    options = ["Show table", "Add new item", "Remove item", "Update item", "Lowest price item",
+               "Items sold between dates"]
     while True:
-        ui.print_menu("Selling submenu", options, "Exit program")
+        ui.print_menu("Selling submenu", options, "Back to Main menu")
         inputs = ui.get_inputs(["Please choose an option: "], "")
         option = inputs[0]
         table = data_manager.get_table_from_file(current_file_path + "/sellings.csv")
@@ -39,9 +40,27 @@ def start():
         elif option == "4":
             update(table, id_)
         elif option == "5":
-            get_lowest_price_item_id(table)
+            lowest_price_item = get_lowest_price_item_id(table)
+            title_list = "Lowest price item: {0}\n".format(lowest_price_item)
+            ui.print_table("", title_list)
         elif option == "6":
-            get_items_sold_between(table, month_from, day_from, year_from, month_to, day_to, year_to)
+            try:
+                inputs_from = ui.get_inputs(["Items from this date in this (form:day-month-year) "], "")
+                date_from_list = inputs_from[0].split("-")
+                day_from = date_from_list[0]
+                month_from = date_from_list[1]
+                year_from = date_from_list[2]
+                inputs_to = ui.get_inputs(["Items to this date (form:day-month-year) "], "")
+                date_to_list = inputs_to[0].split("-")
+                day_to = date_to_list[0]
+                month_to = date_to_list[1]
+                year_to = date_to_list[2]
+                title_list = ["id", "title", "price", "month", "day", "year"]
+                items_sold_table = get_items_sold_between(table, month_from, day_from, year_from, month_to, day_to, year_to)
+                ui.print_table(items_sold_table, title_list)
+            except:
+                ui.print_error_message("This date form is not accepted")
+        elif option == "0":
             break
         else:
             raise KeyError("There is no such option.")
@@ -114,19 +133,16 @@ def get_lowest_price_item_id(table):
             first_price = table[i][2]
             first_price_id = table[i][0]
     return first_price_id
-    pass
 
 
 # the question: Which items are sold between two given dates ? (from_date < birth_date < to_date)
 # return type: list of lists (the filtered table)
 def get_items_sold_between(table, month_from, day_from, year_from, month_to, day_to, year_to):
     date_from = int(str(year_from) + str(month_from) + str(day_from))
-    date_to = int(str(year_from) + str(month_from) + str(day_from))
+    date_to = int(str(year_to) + str(month_to) + str(day_to))
     results = []
     for line in table:
         date_today = int(str(line[5]) + str(line[3]) + str(line[4]))
         if (date_today > date_from) and (date_today < date_to):
             results.append(line)
     return results
-
-    pass

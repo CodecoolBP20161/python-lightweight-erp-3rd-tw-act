@@ -20,9 +20,10 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 
 # start this manager by a menu
 def start():
-    options = ["Show table", "Add new item", "Remove item", "Update item"]
+    options = ["Show table", "Add new item", "Remove item", "Update item", "ID with the longest name",
+               "Newsletter subscribers"]
     while True:
-        ui.print_menu("CRM", options, "Exit program")
+        ui.print_menu("CRM submenu", options, "Go back to the main menu")
         inputs = ui.get_inputs(["Please choose an option: "], "")
         option = inputs[0]
         table = data_manager.get_table_from_file(current_file_path + "/customers.csv")
@@ -37,6 +38,17 @@ def start():
             remove(table, id_)
         elif option == "4":
             update(table, id_)
+        elif option == "5":
+            id_longestname = get_longest_name_id(table)
+            title_list = "ID of the customer with the longest name is: {0}\n".format(id_longestname)
+            ui.print_table("", title_list)
+        elif option == "6":
+            title_list = ["email", "name"]
+            subscribers = get_subscribed_emails(table)
+            subs_list = []
+            for i in range(len(subscribers)):
+                subs_list.append(subscribers[i].split(";"))
+            ui.print_table(subs_list, title_list)
         else:
             raise KeyError("There is no such option.")
         pass
@@ -120,9 +132,9 @@ def get_longest_name_id(table):
 # the question: Which customers has subscribed to the newsletter?
 # return type: list of string (where string is like email+separator+name, separator=";")
 def get_subscribed_emails(table):
-    datalines = data_manager.get_table_from_file(current_file_path + "/customers.csv")
+    datalines = table
     subscribed = []
     for i in datalines:
-        if i[3] == 1:
-            subscribed.append(str(i[2], ";", i[1]))
+        if int(i[3]) == 1:
+            subscribed.append("{0};{1}".format(i[2], i[1]))
     return subscribed

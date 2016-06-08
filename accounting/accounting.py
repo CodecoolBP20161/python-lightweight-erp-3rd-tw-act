@@ -22,9 +22,10 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 
 # start this manager by a menu
 def start():
-    options = ["Show table", "Add new item", "Remove item", "Update item"]
+    options = ["Show table", "Add new item", "Remove item", "Update item", "Year with the highest profit",
+               "Average profit(per item) in a given year"]
     while True:
-        ui.print_menu("Accounting submenu", options, "Exit program")
+        ui.print_menu("Accounting submenu", options, "Go back to the main menu")
         inputs = ui.get_inputs(["Please choose an option: "], "")
         option = inputs[0]
         table = data_manager.get_table_from_file(current_file_path + "/items.csv")
@@ -37,8 +38,19 @@ def start():
             remove(table, id_)
         elif option == "4":
             update(table, id_)
-        # elif option == 5:
-        # elif option == 6:
+        elif option == "5":
+            year = which_year_max(table)
+            title_list = "Year with the highest profit: {0}\n".format(year)
+            ui.print_table("", title_list)
+        elif option == "6":
+            inputs = ui.get_inputs(["Please choose a year: "], "")
+            year = int(inputs[0])
+            try:
+                avg_profit = avg_amount(table, year)
+                title_list = "Average profit(per item) in {0}: {1}\n".format(year, avg_profit)
+                ui.print_table("", title_list)
+            except:
+                ui.print_error_message("There is no year {0} in the examined file".format(year))
         elif option == "0":
             break
         else:
