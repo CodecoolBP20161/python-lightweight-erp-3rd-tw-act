@@ -56,7 +56,8 @@ def start():
                 month_to = date_to_list[1]
                 year_to = date_to_list[2]
                 title_list = ["id", "title", "price", "month", "day", "year"]
-                items_sold_table = get_items_sold_between(table, month_from, day_from, year_from, month_to, day_to, year_to)
+                items_sold_table = get_items_sold_between(table, month_from, day_from,
+                                                          year_from, month_to, day_to, year_to)
                 ui.print_table(items_sold_table, title_list)
             except:
                 ui.print_error_message("This date form is not accepted")
@@ -77,24 +78,14 @@ def show_table(table):
 # Ask a new record as an input from the user than add it to @table, than return @table
 def add(table):
     title_list = ["title: ", "price: ", "month: ", "day: ", "year: "]
-    temp_list = []
-    new_line = [common.generate_random(table)]
-    for i in range(len(title_list)):
-        title_list[0] = title_list[i]
-        temp_list.append(ui.get_inputs(title_list, "Give me a data!"))
-        new_line.append(temp_list[i][0])
-    table.append(new_line)
+    common.comm_add(table, title_list)
     data_manager.write_table_to_file(current_file_path + "/sellings.csv", table)
     return table
 
 
 # Remove the record having the id @id_ from the @list, than return @table
 def remove(table, id_):
-    id_ = ui.get_inputs(["id: "], "Give me an id: ")
-    for i in range(len(table)):
-        if table[i][0] == id_[0]:
-            del table[i]
-            break
+    common.comm_remove(table)
     data_manager.write_table_to_file(current_file_path + "/sellings.csv", table)
     return table
 
@@ -103,17 +94,7 @@ def remove(table, id_):
 # than return @table
 def update(table, id_):
     title_list = ["title: ", "price: ", "month: ", "day: ", "year: "]
-    temp_list = []
-    id_ = ui.get_inputs(["id: "], "Give me an id: ")
-    new_line = []
-    new_line.append(id_[0])
-    for i in range(len(title_list)):
-        title_list[0] = title_list[i]
-        temp_list.append(ui.get_inputs(title_list, "Give me a data!"))
-        new_line.append(temp_list[i][0])
-    for i in range(len(table)):
-        if table[i][0] == id_[0]:
-            table[i] = new_line
+    common.comm_update(table, title_list)
     data_manager.write_table_to_file(current_file_path + "/sellings.csv", table)
     return table
 
