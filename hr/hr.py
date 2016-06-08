@@ -20,27 +20,28 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 # start this manager by a menu
 def start():
     options = ["Show table", "Add new item", "Remove item", "Update item"]
-    ui.print_menu("Human Resource submenu", options, "Back to Main menu")
-    inputs = ui.get_inputs(["Please choose an option: "], "")
-    option = inputs[0]
-    table = data_manager.get_table_from_file(current_file_path + "/persons.csv")
-    id_ = "0"
-    if option == "1":
-        show_table(table)
-    elif option == "2":
-        add(table)
-    elif option == "3":
-        remove(table, id_)
-    elif option == "4":
-        update(table, id_)
-    elif option == "5":
-        get_persons_closest_to_average(table)
-    # elif option == 6:
-    elif option == "0":
+    while True:
+        ui.print_menu("Human Resource submenu", options, "Back to Main menu")
+        inputs = ui.get_inputs(["Please choose an option: "], "")
+        option = inputs[0]
+        table = data_manager.get_table_from_file(current_file_path + "/persons.csv")
+        id_ = "0"
+        if option == "1":
+            show_table(table)
+        elif option == "2":
+            add(table)
+        elif option == "3":
+            remove(table, id_)
+        elif option == "4":
+            update(table, id_)
+        elif option == "5":
+            get_persons_closest_to_average(table)
+        # elif option == 6:
+        elif option == "0":
+            break
+        else:
+            raise KeyError("There is no such option.")
         pass
-    else:
-        raise KeyError("There is no such option.")
-    pass
 
 
 # print the default table of records from the file
