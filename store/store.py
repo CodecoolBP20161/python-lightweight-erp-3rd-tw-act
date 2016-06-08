@@ -21,9 +21,10 @@ common = SourceFileLoader("common", current_file_path + "/../common.py").load_mo
 
 # start this manager by a menu
 def start():
-    options = ["Show table", "Add new item", "Remove item", "Update item"]
+    options = ["Show table", "Add new item", "Remove item", "Update item", "Different kind of games(per manufacturer)",
+               "Average amount of games in stock(per manufacturer)"]
     while True:
-        ui.print_menu("Store submenu", options, "Exit program")
+        ui.print_menu("Store submenu", options, "Back to Main menu")
         inputs = ui.get_inputs(["Please choose an option: "], "")
         option = inputs[0]
         table = data_manager.get_table_from_file(current_file_path + "/games.csv")
@@ -36,6 +37,20 @@ def start():
             remove(table, id_)
         elif option == "4":
             update(table, id_)
+        elif option == "5":
+            dict_games_kind = get_counts_by_manufacturers(table)
+            dict_games_kind_table = list(set(dict_games_kind.items()))
+            title_list = ["manufacturer", "count"]
+            ui.print_table(dict_games_kind_table, title_list)
+        elif option == "6":
+            inputs = ui.get_inputs(["Please choose a manufacturer: "], "")
+            manufacturer = inputs[0]
+            try:
+                avg_amount = get_average_by_manufacturer(table, manufacturer)
+                title_list = "Average amount of games in stock by {0}: {1}".format(manufacturer, avg_amount)
+                ui.print_table("", title_list)
+            except:
+                ui.print_error_message("There is no manufacturer named {0} in the examined file".format(manufacturer))
         elif option == "0":
             break
         else:

@@ -3,7 +3,7 @@ def print_table(table, title_list):
         max_len_items = table[0][0]
         for i in range(len(table)):
             for j in range(len(title_list)):
-                if len(table[i][j]) > len(max_len_items):
+                if len(str(table[i][j])) > len(max_len_items):
                     max_len_items = table[i][j]
         max_len_items = len(max_len_items)
         max_len_titles = len(max(title_list, key=len))
